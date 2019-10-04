@@ -36,4 +36,4 @@ global.fakeEventLoop = function fakeEventLoop() {
     microtasksData.queue = [];
     currentMicrotasks.forEach((f) => f());
   } while (microtasksData.queue.length > 0);
-}
+};

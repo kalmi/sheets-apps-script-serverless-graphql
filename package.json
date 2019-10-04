@@ -18,13 +18,14 @@
     "gas-webpack-plugin": "^1.0.2",
     "tslint": "^5.18.0",
     "typescript": "^3.5.3",
+    "uglifyjs-webpack-plugin": "^2.2.0",
     "watch": "^1.0.2",
     "webpack": "^4.35.3",
+    "webpack-bundle-analyzer": "^3.5.2",
     "webpack-cli": "^3.3.5"
   },
   "dependencies": {
     "core-js": "^3.2.1",
-    "es6-shim": "^0.35.5",
     "graphql": "^14.5.8"
   }
 }

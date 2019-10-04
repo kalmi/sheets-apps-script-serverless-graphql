@@ -1,5 +1,7 @@
 const GasPlugin = require('gas-webpack-plugin');
 const es3ifyPlugin = require('es3ify-webpack-plugin');
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 
 module.exports = {
   devtool: 'inline-source-map',
@@ -19,5 +21,20 @@ module.exports = {
   plugins: [
     new GasPlugin(),
     new es3ifyPlugin(),
+   // new BundleAnalyzerPlugin(),
   ],
+  optimization: {
+    providedExports: true,
+    usedExports: true,
+    sideEffects: true,
+    minimizer: [new UglifyJsPlugin({uglifyOptions:{  
+      ie8: true,
+      output: {
+        max_line_len: 255,
+      },
+      mangle: true,
+      keep_fnames: true
+    }})],
+    minimize: true,
+  }
 };
