@@ -1,7 +1,7 @@
-// Google Apps Script has no support for Promise-based code as far as I know,
-// but the graphql library is a heavy user of promises
+// Google Apps Script has no support for Promise-based event loop using code,
+// but the graphql library is a heavy user of promises and the event loop.
 
-// We polyfill Promise in a way that allows us to implement our own "event loop"
+// We replace Promise in a way that allows us to implement our own "event loop"
 
 const microtasksData = {
   queue: [],
