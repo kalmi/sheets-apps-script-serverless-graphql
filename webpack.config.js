@@ -24,9 +24,6 @@ module.exports = {
    // new BundleAnalyzerPlugin(),
   ],
   optimization: {
-    providedExports: true,
-    usedExports: true,
-    sideEffects: true,
     minimizer: [new UglifyJsPlugin({uglifyOptions:{  
       ie8: true,
       output: {
