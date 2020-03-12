@@ -1,6 +1,6 @@
 // tslint:disable:ordered-imports
 
-import "./polyfill";
+import {runFakeEventLoop} from "./polyfill";
 //import '@types/google-apps-script';
 
 import {
@@ -23,7 +23,7 @@ global.doPost = (e: any) => {
   let result: string;
   graphql(schema, query).then((r) => { result = JSON.stringify(r); });
 
-  global.fakeEventLoop();
+  runFakeEventLoop();
   if (!result) { throw new Error('Result was not set.'); }
   return ContentService.createTextOutput(JSON.stringify(result)).setMimeType(ContentService.MimeType.JSON);
 };

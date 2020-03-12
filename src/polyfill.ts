@@ -1,3 +1,33 @@
-// tslint:disable:ordered-imports
-import "./polyfill.fakeEventLoop";
+// Google Apps Script has no support for Promise-based code as far as I know,
+// but the graphql library is a heavy user of promises
+
+// We polyfill Promise in a way that allows us to implement our own "event loop"
+
+const microtasksData = {
+  queue: [],
+};
+
+global.queueMicrotask = function queueMicrotask(f) {
+  microtasksData.queue.push(f);
+};
+
+export function runFakeEventLoop() {
+  let i = 0;
+  do {
+    i++;
+    Logger.log(`Fake event loop pass #${i}`);
+    const currentMicrotasks = microtasksData.queue;
+    microtasksData.queue = [];
+    currentMicrotasks.forEach(f => f());
+  } while (microtasksData.queue.length > 0);
+};
+
+// This following import must be at the end of this file.
+//
+// core-js/es/promise checks for the presence of global.queueMicrotask,
+// and if available, uses it.
+//
+// That means the promise polyfill must be imported only after
+// global.queueMicrotask is set up.
+
 import "core-js/es/promise";
