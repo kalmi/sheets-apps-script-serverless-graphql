@@ -1,5 +1,4 @@
-// tslint:disable:ordered-imports
-
+// Polyfill must be imported before graphql
 import {runFakeEventLoop} from "./polyfill";
 
 import {
