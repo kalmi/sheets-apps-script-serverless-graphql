@@ -1,5 +1,3 @@
-const GasPlugin = require('gas-webpack-plugin');
-const es3ifyPlugin = require('es3ify-webpack-plugin');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 
@@ -19,8 +17,6 @@ module.exports = {
     ],
   },
   plugins: [
-    new GasPlugin(),
-    new es3ifyPlugin(),
    // new BundleAnalyzerPlugin(),
   ],
   optimization: {
