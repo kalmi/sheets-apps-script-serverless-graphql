@@ -1,7 +1,6 @@
 // tslint:disable:ordered-imports
 
 import {runFakeEventLoop} from "./polyfill";
-//import '@types/google-apps-script';
 
 import {
   graphql,
