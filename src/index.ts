@@ -9,10 +9,6 @@ import {
   GraphQLList,
 } from "graphql";
 
-global.main = () => {
-  Logger.log(generateSchema().getQueryType().inspect());
-};
-
 global.doPost = (e: GoogleAppsScript.Events.DoPost) => {
   const query = JSON.parse(e.postData.contents).query;
 
