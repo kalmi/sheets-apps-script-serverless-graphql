@@ -1,3 +1,5 @@
+ /* tslint:disable */ 
+
 declare namespace glFunctions {
   interface global {
     [x: string]: any;

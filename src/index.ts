@@ -63,7 +63,7 @@ function generateSchema() {
           resolve: () => {
             const sheet = sheets[type.name];
             const allRows = sheet.getSheetValues(1,1,-1,-1);
-            const [headerRow, ...dataRows] = allRows; 
+            const [headerRow, ...dataRows] = allRows;
             return dataRows.map(
               row => Object.fromEntries(headerRow.map(
                 (header: string, i) => [header, row[i]]
