@@ -1,9 +1,9 @@
 {
-  "name": "gas-typescript-webpack",
-  "version": "2.0.0",
-  "description": "This is an example code for writing Google Apps Script in TypeScript and building with webpack",
+  "name": "sheets-apps-script-serverless-graphql",
+  "version": "0.0.1",
+  "description": "Expose your Google Sheet's data with GraphQL using Google Apps Script.",
   "main": "src/index.ts",
-  "author": "Naoki Sawada",
+  "author": "Kálmán Tarnay",
   "license": "MIT",
   "scripts": {
     "lint": "tslint -c tslint.json 'src/**/*.ts'",
