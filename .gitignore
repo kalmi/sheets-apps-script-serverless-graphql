@@ -1,6 +1,7 @@
 dist/*.js
 dist/appsscript.json
 .clasp.json
+.deploymentId
 
 # Created by https://www.gitignore.io/api/macos,node
 

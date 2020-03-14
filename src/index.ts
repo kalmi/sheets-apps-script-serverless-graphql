@@ -9,18 +9,28 @@ import {
   GraphQLList,
 } from "graphql";
 
+global.doGet = (e: GoogleAppsScript.Events.DoGet) => {
+  return ContentService.createTextOutput(`
+    API is live.
+    You can send an HTTP POST request to API's URL, passing the GraphQL query as the query field in a JSON payload.
+    Note that due to Google Apps Script limitations, the current URL is different as there is always a redirect before returning any data.
+  `);
+}
+
 global.doPost = (e: GoogleAppsScript.Events.DoPost) => {
-  const query = JSON.parse(e.postData.contents).query;
-
   const schema = generateSchema();
-
-  let result: string;
-  graphql(schema, query).then((r) => { result = JSON.stringify(r); });
-
-  runFakeEventLoop();
-  if (!result) { throw new Error('Result was not set.'); }
+  const query = JSON.parse(e.postData.contents).query;
+  const result = runQuery(query, schema);
   return ContentService.createTextOutput(JSON.stringify(result)).setMimeType(ContentService.MimeType.JSON);
 };
+
+function runQuery(query: string, schema: GraphQLSchema) {
+  let result: string;
+  graphql(schema, query).then(r => { result = JSON.stringify(r); });
+  runFakeEventLoop();
+  if (!result) { throw new Error('Result was not set.'); }
+  return result;
+}
 
 function generateSchema() {
   const TABLE_PREFIX = "graphql:";

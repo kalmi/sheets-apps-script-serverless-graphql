@@ -8,7 +8,8 @@
   "scripts": {
     "lint": "tslint -c tslint.json 'src/**/*.ts'",
     "push": "clasp push",
-    "watch": "watch 'npm run build && npm run push' src/",
+    "deploy": "node tools/deploy.js",
+    "watch": "watch 'yarn run build && yarn run push && yarn deploy' src/",
     "build": "webpack --mode development"
   },
   "devDependencies": {
