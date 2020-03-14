@@ -10,7 +10,8 @@
     "push": "clasp push",
     "deploy": "node tools/deploy.js",
     "watch": "watch 'yarn run build && yarn run push && yarn deploy' src/",
-    "build": "webpack --mode development"
+    "build": "webpack --mode development",
+    "detach": "rm .clasp.json && rm .deploymentId && rm dist/appsscript.json" 
   },
   "devDependencies": {
     "@types/google-apps-script": "^1.0.10",

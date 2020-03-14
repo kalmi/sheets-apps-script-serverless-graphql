@@ -46,9 +46,9 @@ $ cd sheets-apps-script-serverless-graphql
 $ yarn install
 ```
 
-### Create your first exposed sheet
+## Create your first exposed sheet
 
-1. Create a new Google Apps Script attached to a new Google Sheet.
+### 1. Create a new Google Apps Script attached to a new Google Sheet.
 
 ```
 $ clasp create --type sheets --rootDir ./dist
@@ -56,34 +56,88 @@ $ clasp create --type sheets --rootDir ./dist
 
 Alternatively you could add it to a preexisting sheet if you specify [--parentId](https://github.com/google/clasp/blob/master/README.md#create) instead of --type.
 
-2. Add the following to dist/appsscript.json
+### 2. Replace the contents of dist/appsscript.json with the following
 
 ```
+{
+  "timeZone": "Europe/Paris",
+  "dependencies": {
+  },
+  "oauthScopes": [
+    "https://www.googleapis.com/auth/spreadsheets.currentonly"
+  ],
   "webapp": {
     "access": "ANYONE_ANONYMOUS",
     "executeAs": "USER_DEPLOYING"
   },
+  "exceptionLogging": "STACKDRIVER",
+  "runtimeVersion": "V8"
+}
+
 ```
 
-3. Build the project
+### 3. Build the project
 
 ```
 $ yarn build
 ```
 
-4. Push the dist directory to Google Apps Script
+### 4. Push the dist directory to Google Apps Script
 
 ```
-$ yarn push
+$ yarn push -f
 ```
 
-5. Create a deployment to expose the GrahpQL API
+### 5. Create a deployment to expose the GrahpQL API
 
 ```
 $ yarn deploy
 ```
 
-## Usage
+### 6. Authorize access for the webapp to the spreadsheet
+
+```
+$ clasp open
+```
+
+- Open the "Publish" menu, and click "Deploy as web app.."
+- Click "Update" in the dialog
+- Click "Review permissions" 
+- Follow the instructions displayed to authorize your application to access the spreadsheet
+- Close the script editor
+
+### 7. Add some data
+
+- Open your spreadsheet in Google Sheets
+- Rename your sheet to graphql:Customer (Only sheets with the `graphql:` prefix are exposed)
+- Add headers, such as id name, age
+- Add some data
+
+![Example data](data_example.png)
+
+### 8. Make your first query
+
+```
+wget https://script.google.com/macros/s/`cat .deploymentId`/exec -q -O- --post-data '{ "query": "{ City { name }}"}'
+```
+
+This should result in:
+```
+{
+  "data": {
+    "City": [
+      {
+        "name": "Budapest"
+      },
+      {
+        "name": "Bucharest"
+      }
+    ]
+  }
+}
+```
+
+## Deploying a new version
 
 ```
 $ yarn build
@@ -93,7 +147,7 @@ $ yarn deploy
 
 ## Development
 
-If you watnt to use watch mode, run the next command.
+If you want to use watch mode, run the following command:
 
 ```
 $ yarn watch
