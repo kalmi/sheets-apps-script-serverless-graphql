@@ -21,12 +21,12 @@ global.doPost = (e: GoogleAppsScript.Events.DoPost) => {
   const schema = generateSchema();
   const query = JSON.parse(e.postData.contents).query;
   const result = runQuery(query, schema);
-  return ContentService.createTextOutput(JSON.stringify(result)).setMimeType(ContentService.MimeType.JSON);
+  return ContentService.createTextOutput(result).setMimeType(ContentService.MimeType.JSON);
 };
 
 function runQuery(query: string, schema: GraphQLSchema) {
   let result: string;
-  graphql(schema, query).then(r => { result = JSON.stringify(r); });
+  graphql(schema, query).then(r => { result = JSON.stringify(r, undefined, 2); });
   runFakeEventLoop();
   if (!result) { throw new Error('Result was not set.'); }
   return result;
